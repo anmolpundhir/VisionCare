@@ -1,7 +1,6 @@
 {
   "buildCommand": "echo 'Frontend static build'",
   "outputDirectory": "Frontend",
-  "public": true,
   "rewrites": [
     {
       "source": "/(.*)",
