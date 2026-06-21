@@ -12,7 +12,7 @@ This error occurs when the frontend cannot connect to the backend server. Here's
 
 1. Navigate to the Backend folder:
    ```
-   cd "c:\Users\ASUS\OneDrive\Desktop\Diabetic Retinopathy\Backend"
+   cd "c:\Users\ASUS\OneDrive\Desktop\VisionCare\Backend"
    ```
 
 2. Run the startup script:
@@ -51,7 +51,7 @@ When the server starts successfully:
    Wait until you see "Running on http://0.0.0.0:5000"
 
 2. **Open Frontend** (In Browser)
-   - Open: `c:\Users\ASUS\OneDrive\Desktop\Diabetic Retinopathy\Frontend\index.html`
+   - Open: `c:\Users\ASUS\OneDrive\Desktop\VisionCare\Frontend\index.html`
    - Or serve it via a local web server
 
 3. **Upload & Process**
@@ -71,7 +71,7 @@ When the server starts successfully:
 ### Error: "Module not found" (Flask, TensorFlow, etc.)
 - **Solution**: Install dependencies:
   ```
-  cd "c:\Users\ASUS\OneDrive\Desktop\Diabetic Retinopathy"
+  cd "c:\Users\ASUS\OneDrive\Desktop\VisionCare"
   pip install -r requirements.txt
   ```
 
