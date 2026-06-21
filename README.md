@@ -1,4 +1,4 @@
-# 🩺 Diabetic Retinopathy Detection using CNN
+# 🩺 VisionCare : Diabetic Retinopathy Detection using CNN
 
 A deep learning-based web application that detects **Diabetic Retinopathy (DR)** from retinal images using a **Convolutional Neural Network (CNN)** with **Long-Range Dependency Units** and **InceptionV3**.
 
