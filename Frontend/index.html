@@ -331,6 +331,9 @@
 
     <script>
         let uploadedFile = null;
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:5000' 
+            : 'https://visioncare-backend.railway.app';  // Update with your Railway backend URL
 
         document.getElementById('file-input').addEventListener('change', function(event) {
             uploadedFile = event.target.files[0];
@@ -370,7 +373,7 @@
             const formData = new FormData();
             formData.append('file', uploadedFile);
 
-            fetch('http://localhost:5000/upload_image', {
+            fetch(API_URL + '/upload_image', {
                 method: 'POST',
                 body: formData,
                 timeout: 10000

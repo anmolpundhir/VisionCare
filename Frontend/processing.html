@@ -220,13 +220,17 @@
     </footer>
 
     <script>
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:5000' 
+            : 'https://visioncare-backend.railway.app';  // Update with your Railway backend URL
+
         function pollResult(taskId) {
             const loadingSpinner = document.getElementById('loading-spinner');
             const resultsDiv = document.getElementById('results');
             const errorMessage = document.getElementById('error-message');
 
             const intervalId = setInterval(() => {
-                fetch(`http://localhost:5000/get_result/${taskId}`)
+                fetch(API_URL + `/get_result/${taskId}`)
                 .then(response => {
                     if (!response.ok) {
                         if (response.status === 0) {
