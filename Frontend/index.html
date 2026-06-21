@@ -3,129 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Upload an image of a retina to predict the presence of Diabetic Retinopathy using AI technology.">
-    <meta name="keywords" content="Diabetic Retinopathy, Retina Image Upload, AI Diagnosis, Eye Health">
-    <meta name="author" content="Your Name">
-    <meta property="og:title" content="Diabetic Retinopathy Detection">
-    <meta property="og:description" content="AI-powered tool to detect Diabetic Retinopathy. Upload your retina image to get results.">
+    <meta name="description" content="Upload a retina image to diagnose eye conditions using advanced AI technology.">
+    <meta name="keywords" content="VisionCare, Retina Image Upload, AI Diagnosis, Eye Health">
+    <meta name="author" content="VisionCare Team">
+    <meta property="og:title" content="VisionCare - Eye Health Diagnosis">
+    <meta property="og:description" content="AI-powered tool to diagnose eye conditions. Upload your retina image to get instant results.">
     <meta property="og:image" content="example-image-url.jpg">
-    <meta property="og:url" content="http://your-website.com">
+    <meta property="og:url" content="http://visioncare.com">
     <meta property="twitter:card" content="summary_large_image">
-    <title>Diabetic Retinopathy Detection</title>
+    <title>VisionCare - Eye Health Diagnosis</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0;
-            background: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
-        }
-        header {
-            background: #0077cc;
-            color: #ffffff;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        header h1 {
-            font-size: 2rem;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0d0d0d;
+            color: #d9d9d9;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #000000;
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid #3d5a50;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #e8e8e8;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
         nav {
-            background: #005fa3;
-            padding: 10px 20px;
+            background: #1a1a1a;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
+            border-bottom: 1px solid #2a2a2a;
         }
+
         nav a {
-            color: #ffffff;
+            color: #b0b0b0;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 1rem;
-            transition: color 0.3s ease;
+            margin: 0 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
         }
+
         nav a:hover {
-            color: #f9f9f9;
+            color: #6b8a7e;
         }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #6b8a7e;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
         #about {
-            background: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 40px;
+            margin: 40px 20px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid #2a2a2a;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
+
         #about h2 {
-            color: #0077cc;
-            margin-bottom: 10px;
+            color: #6b8a7e;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 600;
         }
+
         #about p {
             text-align: justify;
             font-size: 1rem;
-            color: #555;
+            color: #b8b8b8;
+            line-height: 1.8;
         }
+
         #upload-container {
-            border: 2px dashed #0077cc;
-            border-radius: 20px;
-            padding: 30px;
-            margin: 20px 0;
+            border: 2px dashed #3d5a50;
+            border-radius: 12px;
+            padding: 60px 30px;
+            margin: 40px 20px;
             text-align: center;
-            background: #ffffff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            background: #1a1a1a;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s ease;
         }
+
+        #upload-container:hover {
+            background: #242424;
+            border-color: #5a9a8f;
+            box-shadow: 0 4px 15px rgba(90, 154, 143, 0.15);
+            transform: translateY(-2px);
+        }
+
         #upload-icon {
-            font-size: 60px;
-            color: #0077cc;
+            font-size: 100px;
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+            display: inline-block;
+            opacity: 0.8;
         }
+
         #upload-icon:hover {
-            color: #005fa3;
+            transform: scale(1.1) rotate(5deg);
+            opacity: 1;
         }
+
+        #upload-container p {
+            font-size: 1.1rem;
+            color: #a8a8a8;
+            margin: 0;
+            font-weight: 400;
+        }
+
         #image-preview {
             max-width: 100%;
-            margin: 20px 0;
+            margin: 30px auto;
             display: none;
-            border-radius: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 1px solid #2a2a2a;
+            max-width: 500px;
         }
+
+        #image-container {
+            text-align: center;
+        }
+
         #error-message {
-            color: red;
-            margin: 10px 0;
-            font-size: 0.9rem;
+            color: #d97575;
+            margin: 20px 20px;
+            font-size: 0.95rem;
+            padding: 16px;
+            background: #2a1515;
+            border-radius: 8px;
+            border-left: 3px solid #d97575;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+            display: none;
         }
+
+        #error-message.show {
+            display: block;
+        }
+
         #process-button {
-            background: #0077cc;
-            color: #ffffff;
+            background: #3d5a50;
+            color: #e8e8e8;
             border: none;
-            padding: 10px 20px;
+            padding: 16px 45px;
             font-size: 1rem;
-            border-radius: 5px;
+            font-weight: 600;
+            border-radius: 6px;
             cursor: pointer;
             display: none;
+            margin: 25px auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
         }
+
         #process-button:hover {
-            background: #005fa3;
+            background: #5a9a8f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(90, 154, 143, 0.25);
         }
+
+        #process-button:active {
+            transform: translateY(0);
+        }
+
+        #process-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #2a2a2a;
+        }
+
         footer {
             text-align: center;
-            margin-top: 20px;
+            margin-top: auto;
             font-size: 0.9rem;
-            color: #666;
-            padding: 10px 0;
-            background: #f1f1f1;
+            color: #808080;
+            padding: 30px 20px;
+            background: #000000;
+            border-top: 1px solid #2a2a2a;
         }
+
         footer p {
-            margin: 0;
+            margin: 6px 0;
+        }
+
+        footer a {
+            color: #6b8a7e;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            color: #5a9a8f;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav a {
+                margin: 5px 10px;
+            }
+
+            #about {
+                margin: 20px 10px;
+                padding: 25px;
+            }
+
+            #upload-container {
+                padding: 40px 20px;
+                margin: 20px 10px;
+            }
+
+            #upload-icon {
+                font-size: 70px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Diabetic Retinopathy Detection</h1>
+        <h1>VisionCare</h1>
+        <p>AI-Powered Retinal Diagnostics</p>
     </header>
 
     <nav>
@@ -140,11 +301,9 @@
     </nav>
 
     <section id="about">
-        <h2>About This Tool</h2>
+        <h2>About VisionCare</h2>
         <p>
-            Diabetic Retinopathy is a serious eye condition caused by diabetes, leading to damage in the retina. Early detection is crucial 
-            to prevent vision loss. This tool uses advanced AI algorithms to analyze retina images and predict whether Diabetic Retinopathy 
-            is present. Simply upload a clear image of your retina to get started.
+            VisionCare is an innovative AI-powered platform designed to revolutionize eye health diagnostics. We provide advanced analysis of retinal images to detect and assess various eye conditions with high precision. Our cutting-edge technology enables early detection of vision-threatening diseases, helping you take proactive steps toward better eye health. Simply upload a clear image of your retina and let VisionCare provide you with comprehensive diagnostic insights.
         </p>
     </section>
 
@@ -165,8 +324,8 @@
     <button id="process-button">Upload and Process</button>
 
     <footer id="contact">
-        <p>&copy; 2024 Diabetic Retinopathy Detection at G.L. Bajaj. All Rights Reserved.</p>
-        <p>Contact us: <a href="mailto:support@example.com">support@diabetic-retinopathy-gl-bajaj.com</a></p>
+        <p>&copy; 2024 VisionCare. All Rights Reserved.</p>
+        <p>Contact us: <a href="mailto:support@visioncare.com">support@visioncare.com</a></p>
 
     </footer>
 
@@ -186,7 +345,9 @@
                 document.getElementById('process-button').style.display = 'block';
 
                 // Reset previous error message
-                document.getElementById('error-message').textContent = '';
+                const errorMsg = document.getElementById('error-message');
+                errorMsg.textContent = '';
+                errorMsg.classList.remove('show');
             };
 
             reader.readAsDataURL(uploadedFile);
@@ -199,20 +360,36 @@
             }
 
             const errorMessage = document.getElementById('error-message');
+            const processButton = document.getElementById('process-button');
+            
+            // Show loading state
+            errorMessage.textContent = '⏳ Uploading image...';
+            errorMessage.classList.add('show');
+            processButton.disabled = true;
+            
             const formData = new FormData();
             formData.append('file', uploadedFile);
 
             fetch('http://localhost:5000/upload_image', {
                 method: 'POST',
                 body: formData,
+                timeout: 10000
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    if (response.status === 0) {
+                        throw new Error('Cannot connect to server. Is the backend running on http://localhost:5000?');
+                    }
+                    return response.json().then(data => {
+                        throw new Error(data.error || `Server error: ${response.status}`);
+                    });
                 }
                 return response.json();
             })
             .then(data => {
+                if (!data.task_id) {
+                    throw new Error('No task ID received from server');
+                }
                 const taskId = data.task_id;
 
                 // Store task ID in local storage
@@ -222,7 +399,10 @@
                 window.location.href = 'processing.html';
             })
             .catch(error => {
-                errorMessage.textContent = `Upload failed: ${error.message}`;
+                errorMessage.textContent = `❌ Error: ${error.message}`;
+                errorMessage.classList.add('show');
+                processButton.disabled = false;
+                console.error('Upload error details:', error);
             });
         });
     </script>

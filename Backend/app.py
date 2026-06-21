@@ -209,54 +209,76 @@ tasks = {}
 
 def process_task(task_id, file_path):
     try:
+        print(f"→ Processing started for task: {task_id}")
+        
         # Load and preprocess the image
         img = image.load_img(file_path, target_size=(150, 150))
         img_array = image.img_to_array(img) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
+        print(f"→ Image loaded and preprocessed: {file_path}")
 
         # Make predictions
         prediction = model.predict(img_array)
         predicted_class_index = np.argmax(prediction)
+        predicted_class = ['Mild', 'Moderate', 'Severe', 'Proliferative DR'][predicted_class_index] if predicted_class_index < 4 else 'Unknown'
+        confidence = float(np.max(prediction))
+        
         result = {
-            'result': ['Mild', 'Moderate', 'Severe', 'Proliferative DR'][predicted_class_index],
-            'confidence': float(np.max(prediction)),
+            'result': predicted_class,
+            'confidence': confidence,
         }
-        print("*"*89)
-        print(result)
+        print(f"✓ Prediction complete - Result: {predicted_class}, Confidence: {confidence:.2%}")
+        
         # Store the result in the tasks dictionary
         tasks[task_id]['status'] = 'completed'
         tasks[task_id]['result'] = result
 
         # Clean up uploaded file
         os.remove(file_path)
+        print(f"✓ Task completed and file cleaned up: {task_id}")
 
     except Exception as e:
+        print(f"✗ Error processing task {task_id}: {str(e)}")
         tasks[task_id]['status'] = 'failed'
         tasks[task_id]['error'] = str(e)
+        # Try to clean up file if it exists
+        try:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+        except:
+            pass
 
 @app.route('/upload_image', methods=['POST'])
 def upload_image():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file uploaded'}), 400
+    try:
+        if 'file' not in request.files:
+            print("ERROR: No file uploaded in request")
+            return jsonify({'error': 'No file uploaded'}), 400
 
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'No file selected'}), 400
+        file = request.files['file']
+        if file.filename == '':
+            print("ERROR: No file selected")
+            return jsonify({'error': 'No file selected'}), 400
 
-    # Save the file and create a job ID
-    filename = f"{uuid.uuid4()}.png"
-    file_path = os.path.join(UPLOAD_FOLDER, filename)
-    file.save(file_path)
+        # Save the file and create a job ID
+        filename = f"{uuid.uuid4()}.png"
+        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(file_path)
+        print(f"✓ File saved: {file_path}")
 
-    # Create a task
-    task_id = str(uuid.uuid4())
-    print("Task id: " + task_id)
-    tasks[task_id] = {'status': 'processing'}
+        # Create a task
+        task_id = str(uuid.uuid4())
+        print(f"✓ Task created with ID: {task_id}")
+        tasks[task_id] = {'status': 'processing'}
 
-    # Process the file in a separate thread
-    threading.Thread(target=process_task, args=(task_id, file_path)).start()
+        # Process the file in a separate thread
+        threading.Thread(target=process_task, args=(task_id, file_path)).start()
+        print(f"✓ Processing thread started for task: {task_id}")
 
-    return jsonify({'task_id': task_id}), 202
+        return jsonify({'task_id': task_id}), 202
+    except Exception as e:
+        print(f"ERROR in upload_image: {str(e)}")
+        return jsonify({'error': f'Server error: {str(e)}'}), 500
 
 @app.route('/get_result/<task_id>', methods=['GET'])
 def get_result(task_id):
@@ -272,4 +294,12 @@ def get_result(task_id):
         return jsonify({'status': task['status']}), 202
 
 if __name__ == '__main__':
+    print("\n" + "="*60)
+    print("  VisionCare Backend Server Starting...")
+    print("="*60)
+    print(f"  Model loaded from: model/model.h5")
+    print(f"  Uploads folder: {UPLOAD_FOLDER}")
+    print(f"  Server running on: http://0.0.0.0:5000")
+    print(f"  Access from frontend: http://localhost:5000")
+    print("="*60 + "\n")
     app.run(debug=True, host='0.0.0.0', port=5000)
