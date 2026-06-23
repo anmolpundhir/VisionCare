@@ -95,8 +95,8 @@ The system allows users to upload retinal images and receive **real-time predict
 ### 1️⃣ **Clone Repository**
 
 ```bash
-git clone https://github.com/anmolpundhir/Diabetic-Retinopathy.git
-cd Diabetic-Retinopathy
+git clone https://github.com/anmolpundhir/VisionCare.git
+cd VisionCare
 ```
 
 ### 2️⃣ **Install Dependencies**
