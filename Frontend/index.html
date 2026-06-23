@@ -12,182 +12,398 @@
     <meta property="og:url" content="http://visioncare.com">
     <meta property="twitter:card" content="summary_large_image">
     <title>VisionCare - Eye Health Diagnosis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary:    #0d1117;
+            --bg-secondary:  #161b27;
+            --bg-card:       #1b2133;
+            --accent:        #6a8fc8;
+            --accent-hover:  #5577b8;
+            --text-primary:  #dde3f0;
+            --text-secondary:#8a96b0;
+            --border:        #252e42;
+            --error-bg:      #25151e;
+            --error-text:    #e07070;
+            --error-border:  #a04050;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0d0d0d;
-            color: #d9d9d9;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        header {
-            background: #000000;
-            color: #ffffff;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            border-bottom: 2px solid #3d5a50;
-            position: relative;
-        }
-
-        header h1 {
-            font-size: 2.8rem;
-            margin: 0;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            color: #e8e8e8;
-        }
-
-        header p {
-            font-size: 0.9rem;
-            color: #a0a0a0;
-            margin-top: 8px;
-            letter-spacing: 0.5px;
-        }
-
+        /* ─── NAVBAR ─────────────────────────────── */
         nav {
-            background: #1a1a1a;
-            padding: 15px 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 60px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid #2a2a2a;
         }
 
-        nav a {
-            color: #b0b0b0;
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             text-decoration: none;
-            margin: 0 20px;
-            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-brand .brand-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
             font-weight: 500;
-            transition: all 0.3s ease;
+            padding: 6px 14px;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: var(--bg-card);
+        }
+
+        /* ─── HERO ────────────────────────────────── */
+        .hero {
+            padding: 80px 40px 60px;
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(106, 143, 200, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(106, 143, 200, 0.25);
+            padding: 5px 14px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: var(--accent);
+            color: #0f1117;
+            padding: 13px 32px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .hero-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        /* ─── FEATURES STRIP ─────────────────────── */
+        .features-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 860px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            border-left-color: var(--accent);
+        }
+
+        .feature-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .feature-card h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .feature-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* ─── HOW IT WORKS ───────────────────────── */
+        #about {
+            max-width: 860px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 1.2em;
+            background: var(--accent);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .section-sub {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .step {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 10px;
+            padding: 24px 20px;
             position: relative;
         }
 
-        nav a:hover {
-            color: #6b8a7e;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #6b8a7e;
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        #about {
-            background: #1a1a1a;
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: rgba(106, 143, 200, 0.12);
+            color: var(--accent);
             border-radius: 8px;
-            padding: 40px;
-            margin: 40px 20px 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            border: 1px solid #2a2a2a;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
         }
 
-        #about h2 {
-            color: #6b8a7e;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
+        .step h3 {
+            font-size: 0.95rem;
             font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
         }
 
-        #about p {
-            text-align: justify;
-            font-size: 1rem;
-            color: #b8b8b8;
-            line-height: 1.8;
+        .step p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ─── UPLOAD SECTION ─────────────────────── */
+        .upload-section {
+            max-width: 860px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
         }
 
         #upload-container {
-            border: 2px dashed #3d5a50;
+            border: 2px dashed var(--border);
             border-radius: 12px;
-            padding: 60px 30px;
-            margin: 40px 20px;
+            padding: 56px 30px;
             text-align: center;
-            background: #1a1a1a;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: all 0.3s ease;
-        }
-
-        #upload-container:hover {
-            background: #242424;
-            border-color: #5a9a8f;
-            box-shadow: 0 4px 15px rgba(90, 154, 143, 0.15);
-            transform: translateY(-2px);
-        }
-
-        #upload-icon {
-            font-size: 100px;
+            background: var(--bg-card);
             cursor: pointer;
-            margin-bottom: 20px;
-            transition: all 0.4s ease;
-            display: inline-block;
-            opacity: 0.8;
+            transition: border-color 0.2s, background 0.2s;
         }
 
-        #upload-icon:hover {
-            transform: scale(1.1) rotate(5deg);
-            opacity: 1;
+        #upload-container:hover,
+        #upload-container.drag-over {
+            border-color: var(--accent);
+            background: rgba(106, 143, 200, 0.04);
+        }
+
+        .upload-icon-wrap {
+            width: 64px;
+            height: 64px;
+            background: rgba(106, 143, 200, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 1.8rem;
+        }
+
+        #upload-container h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
         }
 
         #upload-container p {
-            font-size: 1.1rem;
-            color: #a8a8a8;
-            margin: 0;
-            font-weight: 400;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        #upload-container .browse-link {
+            color: var(--accent);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .upload-meta {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* upload zone selected state */
+        #upload-container.file-selected {
+            border-color: var(--accent);
+            border-style: solid;
+        }
+
+        #file-name-display {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+            padding: 8px 16px;
+            background: rgba(106, 143, 200, 0.1);
+            border: 1px solid rgba(106, 143, 200, 0.25);
+            border-radius: 6px;
+            font-size: 0.82rem;
+            color: var(--accent);
+            font-weight: 500;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+            word-break: break-all;
+        }
+
+        /* ─── IMAGE PREVIEW ──────────────────────── */
+        #image-container {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        #image-container .preview-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
         }
 
         #image-preview {
-            max-width: 100%;
-            margin: 30px auto;
-            display: none;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            border: 1px solid #2a2a2a;
-            max-width: 500px;
+            max-width: 380px;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: block;
+            margin: 0 auto;
         }
 
-        #image-container {
-            text-align: center;
-        }
-
+        /* ─── ERROR ──────────────────────────────── */
         #error-message {
-            color: #d97575;
-            margin: 20px 20px;
-            font-size: 0.95rem;
-            padding: 16px;
-            background: #2a1515;
+            color: var(--error-text);
+            font-size: 0.9rem;
+            padding: 14px 18px;
+            background: var(--error-bg);
             border-radius: 8px;
-            border-left: 3px solid #d97575;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
+            border-left: 3px solid var(--error-border);
+            margin-top: 16px;
             font-weight: 500;
             display: none;
         }
@@ -196,26 +412,26 @@
             display: block;
         }
 
+        /* ─── PROCESS BUTTON ─────────────────────── */
         #process-button {
-            background: #3d5a50;
-            color: #e8e8e8;
+            background: var(--accent);
+            color: #0f1117;
             border: none;
-            padding: 16px 45px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 6px;
+            padding: 13px 36px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 8px;
             cursor: pointer;
             display: none;
-            margin: 25px auto;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            letter-spacing: 0.5px;
+            margin: 20px auto 0;
+            transition: background 0.2s, transform 0.15s;
+            letter-spacing: 0.2px;
+            font-family: 'Inter', sans-serif;
         }
 
         #process-button:hover {
-            background: #5a9a8f;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(90, 154, 143, 0.25);
+            background: var(--accent-hover);
+            transform: translateY(-1px);
         }
 
         #process-button:active {
@@ -223,129 +439,254 @@
         }
 
         #process-button:disabled {
-            opacity: 0.5;
+            opacity: 0.45;
             cursor: not-allowed;
-            background: #2a2a2a;
+            transform: none;
         }
 
-        footer {
+        .privacy-note {
             text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 12px;
+        }
+
+        .privacy-note span {
+            color: var(--accent);
+        }
+
+        /* ─── FOOTER ─────────────────────────────── */
+        footer {
             margin-top: auto;
-            font-size: 0.9rem;
-            color: #808080;
-            padding: 30px 20px;
-            background: #000000;
-            border-top: 1px solid #2a2a2a;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 28px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         footer p {
-            margin: 6px 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
 
         footer a {
-            color: #6b8a7e;
+            color: var(--accent);
             text-decoration: none;
-            transition: all 0.3s ease;
             font-weight: 500;
+            transition: color 0.2s;
         }
 
         footer a:hover {
-            color: #5a9a8f;
+            color: var(--accent-hover);
         }
 
+        /* ─── DIVIDER ────────────────────────────── */
+        .section-divider {
+            max-width: 860px;
+            margin: 0 auto 48px;
+            padding: 0 40px;
+            border: none;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────── */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
+            nav { padding: 0 20px; }
+
+            .hero { padding: 50px 20px 40px; }
+            .hero h1 { font-size: 1.9rem; }
+
+            .features-strip {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
             }
 
-            nav {
+            #about, .upload-section {
+                padding: 0 20px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
                 flex-direction: column;
-                gap: 10px;
-            }
-
-            nav a {
-                margin: 5px 10px;
-            }
-
-            #about {
-                margin: 20px 10px;
-                padding: 25px;
-            }
-
-            #upload-container {
-                padding: 40px 20px;
-                margin: 20px 10px;
-            }
-
-            #upload-icon {
-                font-size: 70px;
+                text-align: center;
+                padding: 24px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>VisionCare</h1>
-        <p>AI-Powered Retinal Diagnostics</p>
-    </header>
 
+    <!-- NAVBAR -->
     <nav>
-        <div>
-            <a href="#about">About</a>
-            <a href="#upload-container">Upload</a>
-        </div>
-        <div>
-            <a href="#">Home</a>
-            <a href="#contact">Contact</a>
+        <a href="#" class="nav-brand" id="nav-home">
+            <div class="brand-icon">👁</div>
+            VisionCare
+        </a>
+        <div class="nav-links">
+            <a href="#about" id="nav-about">About</a>
+            <a href="#upload-section" id="nav-upload">Upload</a>
+            <a href="#contact" id="nav-contact">Contact</a>
         </div>
     </nav>
 
-    <section id="about">
-        <h2>About VisionCare</h2>
-        <p>
-            VisionCare is an innovative AI-powered platform designed to revolutionize eye health diagnostics. We provide advanced analysis of retinal images to detect and assess various eye conditions with high precision. Our cutting-edge technology enables early detection of vision-threatening diseases, helping you take proactive steps toward better eye health. Simply upload a clear image of your retina and let VisionCare provide you with comprehensive diagnostic insights.
-        </p>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">🔬 AI-Powered Retinal Screening</div>
+        <h1>Diabetic Retinopathy <span>Detection</span></h1>
+        <p>Upload a retina scan and our AI model will screen it for signs of Diabetic Retinopathy — fast, accurate, and completely private.</p>
+        <a href="#upload-section" class="hero-cta" id="hero-cta-btn">Upload Retina Image →</a>
     </section>
 
-    <div id="upload-container">
-        <input type="file" id="file-input" accept="image/*" style="display: none;">
-        <div id="upload-icon" onclick="document.getElementById('file-input').click();">
-            📤
+    <!-- FEATURES STRIP -->
+    <div class="features-strip">
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <div>
+                <h3>Fast Results</h3>
+                <p>Diagnosis in seconds</p>
+            </div>
         </div>
-        <p>Click the icon to upload an image</p>
+        <div class="feature-card">
+            <div class="feature-icon">👁</div>
+            <div>
+                <h3>DR Screening</h3>
+                <p>Diabetic Retinopathy detection</p>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <div>
+                <h3>Private &amp; Secure</h3>
+                <p>Images not stored</p>
+            </div>
+        </div>
     </div>
 
-    <div id="image-container">
-        <img id="image-preview" alt="Uploaded Image Preview">
-    </div>
+    <hr class="section-divider">
 
-    <div id="error-message"></div>
+    <!-- HOW IT WORKS / ABOUT -->
+    <section id="about">
+        <p class="section-title">How It Works</p>
+        <p class="section-sub">Three simple steps to get your retinal diagnosis</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Upload Image</h3>
+                <p>Select or drag a clear retina scan image (JPG or PNG format).</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>AI Analysis</h3>
+                <p>Our CNN + ANN cascade model analyses the retina for signs of Diabetic Retinopathy.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>View Results</h3>
+                <p>Get your diagnosis, confidence score, and recommended next steps.</p>
+            </div>
+        </div>
+    </section>
 
-    <button id="process-button">Upload and Process</button>
+    <hr class="section-divider">
 
+    <!-- UPLOAD SECTION -->
+    <section class="upload-section" id="upload-section">
+        <p class="section-title">Upload Retina Image</p>
+        <p class="section-sub">Screen for Diabetic Retinopathy &nbsp;·&nbsp; JPG or PNG &nbsp;·&nbsp; Max 10 MB</p>
+
+        <div id="upload-container">
+            <input type="file" id="file-input" accept="image/*" style="display:none;">
+            <div class="upload-icon-wrap" id="upload-icon" onclick="document.getElementById('file-input').click();">
+                ☁️
+            </div>
+            <h3>Drag &amp; drop your image here</h3>
+            <p>or <span class="browse-link" onclick="document.getElementById('file-input').click();">browse files</span></p>
+            <div id="file-name-display">📎 <span id="file-name-text"></span></div>
+            <p class="upload-meta">JPG, PNG &nbsp;·&nbsp; Max 10 MB</p>
+        </div>
+
+        <div id="image-container">
+            <p class="preview-label">Image Preview</p>
+            <img id="image-preview" alt="Uploaded retina image preview">
+        </div>
+
+        <div id="error-message"></div>
+
+        <div style="text-align:center;">
+            <button id="process-button">Analyze Image →</button>
+            <p class="privacy-note" id="privacy-note" style="display:none;">
+                <span>🔒</span> Your image is processed securely and never stored permanently.
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer id="contact">
-        <p>&copy; 2026 VisionCare. All Rights Reserved.</p>
-        <p>Contact us: <a href="mailto:support@visioncare.com">support@visioncare.com</a></p>
-
+        <p>© 2026 VisionCare. All rights reserved.</p>
+        <p>Contact: <a href="mailto:support@visioncare.com">support@visioncare.com</a></p>
     </footer>
 
     <script>
         let uploadedFile = null;
-        const API_URL = window.location.hostname === 'localhost' 
-            ? 'http://localhost:5000' 
+        const API_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
             : 'https://web-production-1d661.up.railway.app';  // Update with your Railway backend URL
 
+        // ── Drag & drop events ──────────────────────────────────
+        const uploadContainer = document.getElementById('upload-container');
+
+        uploadContainer.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadContainer.classList.add('drag-over');
+        });
+
+        uploadContainer.addEventListener('dragleave', function() {
+            uploadContainer.classList.remove('drag-over');
+        });
+
+        uploadContainer.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadContainer.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleFile(file);
+            }
+        });
+
+        // ── File input change ───────────────────────────────────
         document.getElementById('file-input').addEventListener('change', function(event) {
-            uploadedFile = event.target.files[0];
+            handleFile(event.target.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file) return;
+            uploadedFile = file;
             const reader = new FileReader();
 
             reader.onload = function(e) {
                 const imagePreview = document.getElementById('image-preview');
                 imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
 
-                // Show process button
-                document.getElementById('process-button').style.display = 'block';
+                // Show image container
+                const imageContainer = document.getElementById('image-container');
+                imageContainer.style.display = 'block';
+
+                // Show process button and privacy note
+                document.getElementById('process-button').style.display = 'inline-block';
+                document.getElementById('privacy-note').style.display = 'block';
+
+                // Mark upload zone as selected and show filename
+                uploadContainer.classList.add('file-selected');
+                const nameDisplay = document.getElementById('file-name-display');
+                document.getElementById('file-name-text').textContent = file.name;
+                nameDisplay.style.display = 'flex';
 
                 // Reset previous error message
                 const errorMsg = document.getElementById('error-message');
@@ -353,9 +694,10 @@
                 errorMsg.classList.remove('show');
             };
 
-            reader.readAsDataURL(uploadedFile);
-        });
+            reader.readAsDataURL(file);
+        }
 
+        // ── Process button ──────────────────────────────────────
         document.getElementById('process-button').addEventListener('click', function() {
             if (!uploadedFile) {
                 alert('Please upload an image first');
@@ -364,12 +706,13 @@
 
             const errorMessage = document.getElementById('error-message');
             const processButton = document.getElementById('process-button');
-            
+
             // Show loading state
-            errorMessage.textContent = '⏳ Uploading image...';
-            errorMessage.classList.add('show');
+            processButton.textContent = '⏳ Uploading...';
             processButton.disabled = true;
-            
+            errorMessage.textContent = '';
+            errorMessage.classList.remove('show');
+
             const formData = new FormData();
             formData.append('file', uploadedFile);
 
@@ -404,6 +747,7 @@
             .catch(error => {
                 errorMessage.textContent = `❌ Error: ${error.message}`;
                 errorMessage.classList.add('show');
+                processButton.textContent = 'Analyze Image →';
                 processButton.disabled = false;
                 console.error('Upload error details:', error);
             });
