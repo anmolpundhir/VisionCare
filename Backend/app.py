@@ -201,7 +201,14 @@ UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Model loading
-model_path = 'model/model.h5'
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, "model", "model.h5")
+
+print("Model path:", model_path)
+print("Model exists:", os.path.exists(model_path))
+
 model = load_model(model_path)
 
 # Task storage
